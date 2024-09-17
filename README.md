@@ -1,28 +1,28 @@
 # Sales Trends Analysis - SQL Portfolio Project
 
 ## Project Overview
-This project focuses on analyzing sales trends in the art market using SQL. The dataset includes sales data with information such as sale dates, galleries, artists, and sale prices. The analysis aims to identify trends in sales over time, highlight top-selling artists, and determine which galleries performed best.
+The goal of this project is to analyze sales trends in the art market using SQL. The analysis shows trends in sales over time, identify top-selling artists, determine which galleries performed best and to provide some other interesting approaches 
 
-## Dataset Description
-The dataset used in this project contains detailed information on art sales transactions, specifically focusing on galleries, artists, and the artworks they sold. It was sourced from a collection of records documenting sales data, providing a comprehensive view of the art market across multiple years. The data includes sales from various galleries, featuring a diverse range of artists and artworks of different sizes and origins.
+## Description of the Dataset 
+The dataset used in this project contains information about art sales, specifically focusing on galleries, artists, and the artworks they sold. It provides a comprehensive analysis of the art market across multiple years. The data includes sales from many different galleries, together with the information about artists and artworks of different sizes and origins.
 
-***The data used for this analysis was sourced from an Excel file containing the following key columns:***
+***The data used for this analysis is from an Excel file which was imported in SQL and contains the following columns:***
 
 - **Sale Date**: The date of the sale.
-- **Sales Year**: The year the sale occurred.
-- **Sales Month**: The month the sale occurred.
-- **Gallery**: The gallery where the sale was made.
-- **Artist**: The name of the artist whose work was sold.
-- **Origin Year**: The year the artwork was created.
+- **Sales Year**: The year in which the painting was sold.
+- **Sales Month**: The month in which the painting was sold.
+- **Gallery**: The gallery where the sale took place.
+- **Artist**: The name of the artist whose artwork was sold.
+- **Origin Year**: The year in which the artwork was created.
 - **Length (in)**: The length of the artwork (in inches).
 - **Width (in)**: The width of the artwork (in inches).
 - **Sale Price**: The price at which the artwork was sold.
 
 ## Key SQL Queries
-***Here are SQL queries used to perform the analysis, along with their explanations:***
+***Here are SQL queries used to for the analysis, along with their explanations:***
 
-- ## yearly number of sales
-  Query Purpose: This query calculates the total number of paintings sold in each year. By grouping the data by the Sales_Year column, it provides insights into how the number of sales fluctuated year by year.
+- ##  yearly number of sales
+  Query Purpose: This query calculates the total number of paintings sold in each year and  provides insights about how the number of sales fluctuated year by year. It groups the data by the Sales_Year column for clearly understanding the information
 - ```sql
    select [Sales_Year],
    count ( [Artist]) as "Quantity of Paintings"
@@ -30,7 +30,7 @@ The dataset used in this project contains detailed information on art sales tran
    group by [Sales_Year]
 
 - ## Monthly number of Sales in each year
-  Query Purpose: This query analyzes sales trends on a monthly basis within each year. It groups the data by both Sales_Year and Sales_Month, showing how sales numbers change throughout the year.
+  Query Purpose: This query analyzes sales trends on a monthly basis in each year. It groups the data by both Sales_Year and Sales_Month, showing how sales numbers change throughout the year.
 - ```sql
         Select [Sales_Year],[Sales_Month],
         count ( [Artist]) as "Quantity of Paintings"
@@ -39,7 +39,7 @@ The dataset used in this project contains detailed information on art sales tran
 
 
 - ## the amount of time each artist's paintings were sold
-  Query Purpose: This query counts the number of sales each artist has made. Grouping by the Artist column and counting Sale_Price provides a clear view of the most and least popular artists based on sales volume.
+  Query Purpose: This query counts the number of sales for each artist . Grouping by the Artist column and counting Sale_Price, this query provides a clear view of the most and least popular artists based on the quantity of sales
 - ```sql
     SELECT  Artist, 
     COUNT([Sale_Price]) AS "Number_of_Sales"
@@ -59,7 +59,7 @@ The dataset used in this project contains detailed information on art sales tran
      order by "Revenue" desc 
 
 - ## pivot table illustrating total sales revenue each yaer aacross galleries
-  Query Purpose: This query produces a pivot table that compares total sales revenue across galleries over multiple years. The pivot format helps to visualize the sales trends over the selected years (2007, 2008, etc.) across different galleries.
+  Query Purpose: This query produces a pivot table that compares total sales revenue across galleries over the selected years (2007, 2008, etc.). 
 - ```sql
   select* from 
   (select [Gallery],
@@ -72,7 +72,7 @@ The dataset used in this project contains detailed information on art sales tran
    ) as "pivot"
 
 - ## Compare galleries sales to see if the revenue only depends on the number of paintings sold
-  Query Purpose: This query compares the number of paintings sold by each gallery to the total revenue generated. The aim is to understand whether higher sales quantities directly lead to higher revenue, or if other factors (like higher-priced paintings) play a role.
+  Query Purpose: This query compares the number of paintings sold by each gallery to the total revenue generated. The aims to clarify whether higher sales quantities directly lead to higher revenue.
 - ```sql
    Select [Gallery],
    COUNT([Sale_Price])AS "Number_of_Sales",
@@ -83,7 +83,7 @@ The dataset used in this project contains detailed information on art sales tran
 
 
 - ## Revenue generated by artists
-  Query Purpose: This query sums up the revenue generated by each artist, providing insight into which artists contributed the most in terms of total sales value. It helps identify top-performing artists in terms of monetary sales.
+  Query Purpose: This query sums up the revenue generated by each artist, showing the artists that contributed the most in terms of total sales value. It helps identify top-performing artists in terms of sales.
 - ```sql
   select [Artist],
   sum ([Sale_Price]) as "Revenue"
@@ -92,7 +92,7 @@ The dataset used in this project contains detailed information on art sales tran
   order by Revenue desc
 
 - ## Top artists whose total sales exceeded 100000
- Query Purpose: This query identifies the top artists whose total sales exceeded $100,000. It groups the data by artist and filters the results to only include those whose sales have crossed the $100,000 mark, highlighting the most financially successful artists.
+ Query Purpose: This query identifies the top artists whose total sales exceeded $100,000 by grouping the data by artist and filters the results to only include those whose sales satisfies the criteria , highlighting the most financially successful artists.
 - ```sql
    Select [Artist], 
    sum(Sale_Price) as "Total_Sales"
@@ -102,7 +102,7 @@ The dataset used in this project contains detailed information on art sales tran
 
 
 - ## determine whether the price of the painting is correlated with its size
-  Query Purpose: This query determines whether the size of a painting (calculated as length × width in square inches) has any correlation with its sale price. This can help assess whether larger paintings tend to sell for more.
+  Query Purpose: This query determines whether the size of a painting (calculated as length × width in square inches) is determinant of its sale price. This can help to understand whether larger paintings tend to be more expensive and are sold more
 - ```sql   
     Select  [Sale_Price],
     CAST(Length_in AS INT) * CAST(Width_in AS INT) AS "Size_of_the_painting_sq.in"
@@ -111,7 +111,7 @@ The dataset used in this project contains detailed information on art sales tran
 
 
 - ## Determine if there’s a trend in sale price because of the year in which the artwork was created.
-  Query Purpose: This query examines whether the year in which the artwork was created (Origin Year) affects its sale price. By grouping sales data by Orign_Year and summing up the total revenue, it seeks to reveal any patterns related to the age of the artwork and its market value.
+  Query Purpose: This query examines whether the year in which the artwork was created (Origin Year) affects its price. By grouping sales data by Orign_Year and summing up the total revenue, it aims to reveal any correlation between the age of the artwork and its market value.
 - ```sql
     Select [Orign_Year],
     SUM([Sale_Price]) as "Total_sales_revenue
