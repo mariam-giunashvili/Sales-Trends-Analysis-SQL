@@ -1,7 +1,7 @@
 # Sales Trends Analysis - SQL Portfolio Project
 
 ## Project Description
-The goal of this project is to analyze sales trends in the art market using SQL. The analysis shows trends in sales over time, identify top-selling artists, determine which galleries performed best and to provide some other interesting approaches 
+The goal of this project is to analyze sales trends in the art market using SQL. The analysis shows trends in sales over time, identifies top-selling artists, determines which galleries performed best and provides some other interesting approaches 
 
 ## The Dataset Overview
 The dataset used in this project contains information about art sales, specifically focusing on galleries, artists, and the artworks they sold. It provides a comprehensive analysis of the art market across multiple years. The data includes sales from many different galleries, together with the information about artists and artworks of different sizes and origins.
